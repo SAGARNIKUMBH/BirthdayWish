@@ -18,6 +18,7 @@ Display.prototype.add = function (book) {
                     <td>${book.name}</td>
                     <td>${book.date}</td>
                     <td>${book.type}</td>
+                    <td>${book.Action}</td>
                  </tr> `;
   tableBody.innerHTML += uistring;
   serial += 1;
@@ -68,22 +69,20 @@ function libraryFormSumit(e) {
     type = WhatApps.value;
   } else if (Email.checked) {
     type = Email.value;
-  } else if (type.checked) {
-    type = type.value;
   }
-
-  //   function select() {
-  //     var ele = document.getElementsByName("chk");
-  //     for (var i = 0; i < ele.length; i++) {
-  //       if (ele[i].type == "checkbox") ele[i].checked = true;
-  //     }
-  //   }
-  //   function deselect() {
-  //     var ele = document.getElementsByName("chk");
-  //     for (var i = 0; i < ele.length; i++) {
-  //       if (ele[i].type == "checkbox") ele[i].checked = false;
-  //     }
-  //   }
+  {
+    let type = document.getElementById("type");
+    var ele = document.getElementsByName("");
+    for (var i = 0; i < ele.length; i++) {
+      if (ele[i].type == "checkbox") ele[i].checked = true;
+    }
+  }
+  {
+    var ele = document.getElementsByName("type");
+    for (var i = 0; i < ele.length; i++) {
+      if (ele[i].type == "checkbox") ele[i].checked = false;
+    }
+  }
   let book = new Book(name, date, type);
   console.log(book);
 
