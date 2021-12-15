@@ -12,7 +12,12 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      rel="stylesheet"
+    />
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <title>BirthdayWish</title>
   </head>
   <body>
@@ -75,7 +80,7 @@
                 <legend class="col-form-label col-sm-2 pt-0">Sender Type</legend>
                 <div class="col-sm-10">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="type" id="TextMessage" value="Text Message" checked>
+                    <input class="form-check-input" type="checkbox" name="type" id="TextMessage" value="Text Message" >
                     <label class="form-check-label" for="Text Message">
                     Text Message
                     </label>
@@ -88,7 +93,7 @@
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="type" id="Email" value="Email">
-                    <label class="form-check-label" for="Email">
+                    <!-- <label class="form-check-label" for="Email"> -->
                       Email
                     </label>
                   </div>
@@ -97,9 +102,9 @@
               <div class="row mb-3">
                 <div class="col-sm-10 offset-sm-2">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1" onclick="checkAllData()"/>
                     <label class="form-check-label" for="gridCheck1">
-                      Select All Senderx
+                      Select All Sender
                       
                     </label>
                   </div>
@@ -126,7 +131,7 @@
           <div id="table">
             <!-- <table class="table-success">...</table> -->
             <table class="table table-danger">
-                <h2>Brithday Employee List :-</h2>
+                <h2>Birthday Employee List :</h2>
                 <thead>
                   <tr class="table-dark">
                     <th scope="col">Sr.No</th>
@@ -135,6 +140,7 @@
                     <th scope="col">Sender Type</th>
                     <th scope="col">Action</th>
                   </tr>
+                  
                 </thead>
                 <tbody id='tableBody'>
                    

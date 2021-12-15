@@ -11,6 +11,8 @@ function Display() {}
 
 Display.prototype.add = function (book) {
   console.log("Adding to UI", book);
+  let table = document.getElementById("table");
+  table.style.display = "block";
   let tableBody = document.getElementById("tableBody");
   let uistring = `
                 <tr>
@@ -23,10 +25,12 @@ Display.prototype.add = function (book) {
   tableBody.innerHTML += uistring;
   serial += 1;
 };
+
 Display.prototype.clear = function () {
   let libraryForm = document.getElementById("libraryForm");
   libraryForm.reset();
 };
+
 Display.prototype.validate = function (book) {
   if (book.name.length < 2 || book?.Author?.length < 2) {
     return false;
@@ -34,6 +38,7 @@ Display.prototype.validate = function (book) {
     return true;
   }
 };
+
 Display.prototype.show = function (type, displaymessage) {
   let message = document.getElementById("message");
   message.innerHTML = `<div class=" alert alert-${type} alert-dismissible fade show" role="alert">
@@ -47,6 +52,8 @@ Display.prototype.show = function (type, displaymessage) {
 
 let libraryForm = document.getElementById("libraryForm");
 libraryForm.addEventListener("submit", libraryFormSumit);
+let table = document.getElementById("table");
+table.style.display = "none";
 console.log("libraryForm", libraryForm);
 function libraryFormSumit(e) {
   console.log("You have sumitted library form");
@@ -55,46 +62,62 @@ function libraryFormSumit(e) {
   let date = document.getElementById("date").value;
   console.log(date);
 
-  //   let TextMessage = document.getElementById("TextMessage");
-  //   console.log("TextMessage");
-  let WhatApps = document.getElementById("WhatApps");
+  let WhatApps = document.getElementById("WhatsApp");
   let Email = document.getElementById("Email");
   let type = document.getElementById("TextMessage");
-  if (TextMessage.value) {
-    type = TextMessage.value;
-  }
+  var typeData = "";
   if (TextMessage.checked) {
-    type = TextMessage.value;
-  } else if (WhatApps.checked) {
-    type = WhatApps.value;
-  } else if (Email.checked) {
-    type = Email.value;
+    typeData = TextMessage.value;
   }
-  {
-    let type = document.getElementById("type");
-    var ele = document.getElementsByName("");
-    for (var i = 0; i < ele.length; i++) {
-      if (ele[i].type == "checkbox") ele[i].checked = true;
-    }
+  if (WhatApps.checked) {
+    typeData += WhatApps.value;
   }
-  {
-    var ele = document.getElementsByName("type");
-    for (var i = 0; i < ele.length; i++) {
-      if (ele[i].type == "checkbox") ele[i].checked = false;
-    }
+  if (Email.checked) {
+    typeData += Email.value;
   }
-  let book = new Book(name, date, type);
-  console.log(book);
-
-  let display = new Display();
-  if (display.validate(book)) {
-    console.log("click");
-    display.add(book);
-    display.clear();
-    display.show("success", " Your Info has been sucessfully added");
+  let regex = /^[a-zA-Z]([a-zA-Z]){2,10}$/;
+  let str = name;
+  console.log(regex, str);
+  if (regex.test(str)) {
+    console.log("Your name is valid", name);
+    //name.classList.remove("is-invalid");
+    validUser = true;
   } else {
-    display.show("danger", " Sorry you can not add Brithday Details");
+    console.log("Your name is not valid");
+    // name.classList.add("is-invalid");
+    toastr.error("not a valid username");
+    validUser = false;
   }
+  if (validUser) {
+    let book = new Book(name, date, typeData);
+    let table = document.getElementById("table");
+    console.log(book);
+
+    let display = new Display();
+    if (display.validate(book)) {
+      console.log("click");
+      display.add(book);
+      display.clear();
+      display.show("success", " Your Info has been sucessfully added");
+    } else {
+      display.show("danger", " Sorry you can not add Brithday Details");
+    }
+  }
+  // Validate name here
 
   e.preventDefault();
+}
+
+function checkAllData() {
+  var checkedData = document.getElementById("gridCheck1");
+  console.log(checkedData.value);
+  if (checkedData.checked) {
+    document.getElementById("Email").checked = true;
+    document.getElementById("WhatApps").checked = true;
+    document.getElementById("TextMessage").checked = true;
+  } else if (!checkedData.checked) {
+    document.getElementById("Email").checked = false;
+    document.getElementById("WhatApps").checked = false;
+    document.getElementById("TextMessage").checked = false;
+  }
 }
